@@ -214,6 +214,7 @@ body {
     height: 300px;
     border-radius: 10px;
     overflow: hidden;
+    margin: 0 auto;
 }
 
 .destination-card img {
