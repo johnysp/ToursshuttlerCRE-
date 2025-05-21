@@ -202,11 +202,11 @@ body {
 
 /* Destinos */
 .destinations-grid {
-
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
-    justify-content: center;
+    justify-content: center; /* Centra los elementos horizontalmente */
+    padding: 20px 0; /* Opcional: añade espacio interno */
 }
 
 .destination-card {
