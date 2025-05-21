@@ -204,7 +204,7 @@ body {
 .destinations-grid {
 
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
 }
