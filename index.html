@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aventura Tours - Descubre el Mundo</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header / Navbar -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">Shuttler<span>CRE</span></a>
+                <ul class="nav-links">
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#tours">Tours</a></li>
+                    <li><a href="#destinos">Destinos</a></li>
+                    <li><a href="#testimonios">Testimonios</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero">
+        <video autoplay muted loop class="hero-video">
+            <source src="hua.mp4" type="video/mp4">
+            Tu navegador no soporta videos.
+        </video>
+        <div class="hero-content">
+            <h1>Transporte y servicios turísticos</h1>
+            <p>Descubre los destinos más increíbles con experiencias únicas.</p>
+            <a href="#tours" class="btn">Ver Tours</a>
+        </div>
+    </section>
+
+    <!-- Tours Populares -->
+    <section id="tours" class="tours">
+        <div class="container">
+            <h2 class="section-title">Shuttler <span>CRE</span></h2>
+            <div class="tours-grid">
+                <div class="tour-card">
+                    <img src="t1.jpeg" alt="Tour 1">
+                    <!-- <h3>Tour por la Selva</h3>
+                    <p>Explora la naturaleza en su máximo esplendor.</p>
+                    <span class="price">$299</span> -->
+                    <a href="#" class="btn">Reservar</a>
+                </div>
+                <div class="tour-card">
+                    <img src="t2.jpeg" alt="Tour 2">
+                    <!-- <h3>Aventura en la Montaña</h3>
+                    <p>Vive la emoción de escalar las cumbres más altas.</p>
+                    <span class="price">$399</span> -->
+                    <a href="#" class="btn">Reservar</a>
+                </div>
+                <div class="tour-card">
+                    <img src="t3.jpeg" alt="Tour 3">
+                    <!-- <h3>Tour Cultural</h3> -->
+                    <!-- <p>Sumérgete en la historia y tradiciones locales.</p>
+                    <span class="price">$259</span> -->
+                    <a href="#" class="btn">Reservar</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Destinos -->
+    <section id="destinos" class="destinations">
+        <div class="container">
+            <h2 class="section-title">Nuestros <span>Destinos</span></h2>
+            <div class="destinations-grid">
+                <div class="destination-card">
+                    <img src="destino1.jpg" alt="Destino 1">
+                    <div class="destination-info">
+                        <h3>Huatulco</h3>
+                        <p>Donde las palmas tocan el cielo</p>
+                    </div>
+                </div>
+                <div class="destination-card">
+                    <img src="destino2.jpg" alt="Destino 2">
+                    <div class="destination-info">
+                        <h3>Oaxaca</h3>
+                        <p>La ciudad con la mejor gastronomia</p>
+                    </div>
+                </div>
+                <div class="destination-card">
+                    <img src="destino3.jpg" alt="Destino 3">
+                    <div class="destination-info">
+                        <h3>Playas</h3>
+                        <p>Playas y atardeceres inolvidables.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonios -->
+    <section id="testimonios" class="testimonials">
+        <div class="container">
+            <h2 class="section-title">Lo que dicen <span>nuestros clientes</span></h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <img src="cliente1.jpg" alt="Cliente 1">
+                    <p>"¡Increíble experiencia! Todo estuvo perfectamente organizado."</p>
+                    <h4>- María López</h4>
+                </div>
+                <div class="testimonial-card">
+                    <img src="cliente2.jpg" alt="Cliente 2">
+                    <p>"Los mejores guías y destinos espectaculares. Volveré pronto."</p>
+                    <h4>- Carlos Méndez</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacto -->
+<section id="contacto" class="contact">
+    <div class="container">
+        <h2 class="section-title">Contáctanos</h2>
+        <form id="contactForm" class="contact-form">
+            <input type="text" id="nombre" placeholder="Nombre" required>
+            <input type="email" id="email" placeholder="Correo" required>
+            <input type="tel" id="telefono" placeholder="Teléfono (opcional)">
+            <textarea id="mensaje" placeholder="Mensaje" required></textarea>
+            <button type="submit" class="btn">Enviar por WhatsApp</button>
+        </form>
+    </div>
+</section>
+
+<br>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <a href="#" class="logo">Shuttler<span>CRE</span></a>
+                    <p>© 2023 Todos los derechos reservados.</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Enlaces</h3>
+                    <ul>
+                        <li><a href="#inicio">Inicio</a></li>
+                        <li><a href="#tours">Tours</a></li>
+                        <li><a href="#destinos">Destinos</a></li>
+                        <li><a href="#contacto">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h3>Síguenos</h3>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <!-- <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
