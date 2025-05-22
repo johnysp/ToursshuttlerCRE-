@@ -56,3 +56,57 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
     // Opcional: Resetear el formulario
     this.reset();
 });
+
+// Sistema de Comentarios
+document.getElementById('formComentario').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Obtener valores del formulario
+    const nombre = document.getElementById('nombreUsuario').value;
+    const texto = document.getElementById('textoComentario').value;
+    const rating = document.querySelector('.estrellas .fas').parentElement.querySelectorAll('.fas').length;
+    const fecha = new Date().toLocaleDateString('es-ES');
+
+    // Crear elemento de comentario
+    const comentarioHTML = `
+        <div class="comentario">
+            <div class="comentario-header">
+                <h4>${nombre}</h4>
+                <div class="estrellas">
+                    ${'<i class="fas fa-star"></i>'.repeat(rating) + '<i class="far fa-star"></i>'.repeat(5 - rating)}
+                </div>
+            </div>
+            <p>"${texto}"</p>
+            <small>Publicado el ${fecha}</small>
+        </div>
+    `;
+
+    // Añadir comentario a la lista
+    document.getElementById('listaComentarios').insertAdjacentHTML('afterbegin', comentarioHTML);
+
+    // Resetear formulario
+    this.reset();
+    resetStars();
+});
+
+// Sistema de valoración con estrellas
+document.querySelectorAll('.estrellas i').forEach(star => {
+    star.addEventListener('click', function() {
+        const rating = parseInt(this.getAttribute('data-rating'));
+        const stars = this.parentElement.querySelectorAll('i');
+        
+        stars.forEach((s, index) => {
+            if (index < rating) {
+                s.classList.replace('far', 'fas');
+            } else {
+                s.classList.replace('fas', 'far');
+            }
+        });
+    });
+});
+
+function resetStars() {
+    document.querySelectorAll('.estrellas i').forEach(star => {
+        star.classList.replace('fas', 'far');
+    });
+}

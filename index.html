@@ -239,6 +239,54 @@
 </section>
 
 <br>
+
+<section id="comentarios" class="comentarios">
+    <div class="container">
+        <h2 class="section-title">Opiniones de <span>Nuestros Clientes</span></h2>
+        
+        <!-- Formulario para nuevos comentarios -->
+        <div class="form-comentario">
+            <h3>¡Deja tu comentario!</h3>
+            <form id="formComentario">
+                <input type="text" id="nombreUsuario" placeholder="Tu nombre" required>
+                <textarea id="textoComentario" placeholder="¿Cómo fue tu experiencia?" required></textarea>
+                <div class="rating">
+                    <span>Calificación:</span>
+                    <div class="estrellas">
+                        <i class="far fa-star" data-rating="1"></i>
+                        <i class="far fa-star" data-rating="2"></i>
+                        <i class="far fa-star" data-rating="3"></i>
+                        <i class="far fa-star" data-rating="4"></i>
+                        <i class="far fa-star" data-rating="5"></i>
+                    </div>
+                </div>
+                <button type="submit" class="btn">Enviar</button>
+            </form>
+        </div>
+
+        <!-- Lista de Comentarios (se llena con JS) -->
+        <div class="lista-comentarios" id="listaComentarios">
+            <!-- Ejemplo de comentario (puedes borrarlo) -->
+            <div class="comentario">
+                <div class="comentario-header">
+                    <h4>Ana García</h4>
+                    <div class="estrellas">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                </div>
+                <p>"¡Increíble tour por la selva! Los guías fueron muy profesionales."</p>
+                <small>Publicado el 15/05/2023</small>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
