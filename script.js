@@ -110,3 +110,16 @@ function resetStars() {
         star.classList.replace('fas', 'far');
     });
 }
+
+// Al enviar el formulario:
+const comentarios = JSON.parse(localStorage.getItem('comentarios')) || [];
+comentarios.push({ nombre, texto, rating, fecha });
+localStorage.setItem('comentarios', JSON.stringify(comentarios));
+
+// Al cargar la página:
+window.addEventListener('DOMContentLoaded', () => {
+    const comentariosGuardados = JSON.parse(localStorage.getItem('comentarios')) || [];
+    comentariosGuardados.forEach(comentario => {
+        // Renderizar cada comentario guardado
+    });
+});
