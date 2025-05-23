@@ -111,15 +111,77 @@ function resetStars() {
     });
 }
 
-// Al enviar el formulario:
-const comentarios = JSON.parse(localStorage.getItem('comentarios')) || [];
-comentarios.push({ nombre, texto, rating, fecha });
-localStorage.setItem('comentarios', JSON.stringify(comentarios));
+document.getElementById('formComentario').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  
+  const nombre = document.getElementById('nombreUsuario').value;
+  const texto = document.getElementById('textoComentario').value;
+  const rating = document.querySelector('.estrellas .fas')?.parentElement.querySelectorAll('.fas').length || 0;
+  const fecha = new Date().toLocaleDateString('es-ES');
 
-// Al cargar la página:
-window.addEventListener('DOMContentLoaded', () => {
-    const comentariosGuardados = JSON.parse(localStorage.getItem('comentarios')) || [];
-    comentariosGuardados.forEach(comentario => {
-        // Renderizar cada comentario guardado
+  // Guardar en Firestore
+  try {
+    await db.collection("comentarios").add({
+      nombre,
+      texto,
+      rating,
+      fecha,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp()
     });
+    this.reset();
+    resetStars();
+    cargarComentarios(); // Recargar la lista
+  } catch (error) {
+    console.error("Error al guardar:", error);
+  }
 });
+
+
+function cargarComentarios() {
+  const listaComentarios = document.getElementById('listaComentarios');
+  listaComentarios.innerHTML = ''; // Limpiar lista
+
+  db.collection("comentarios")
+    .orderBy("timestamp", "desc")
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        const comentarioHTML = `
+          <div class="comentario">
+            <div class="comentario-header">
+              <h4>${data.nombre}</h4>
+              <div class="estrellas">
+                ${'<i class="fas fa-star"></i>'.repeat(data.rating) + '<i class="far fa-star"></i>'.repeat(5 - data.rating)}
+              </div>
+            </div>
+            <p>"${data.texto}"</p>
+            <small>Publicado el ${data.fecha}</small>
+          </div>
+        `;
+        listaComentarios.insertAdjacentHTML('beforeend', comentarioHTML);
+      });
+    });
+}
+
+// Cargar comentarios al iniciar
+document.addEventListener('DOMContentLoaded', cargarComentarios);
+
+
+
+
+
+
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAKRTdVrQxaLUCui5i5zmysgK7HTnieKsM",
+  authDomain: "comentarios-8336c.firebaseapp.com",
+  projectId: "comentarios-8336c",
+  storageBucket: "comentarios-8336c.firebasestorage.app",
+  messagingSenderId: "837687714909",
+  appId: "1:837687714909:web:017303635bf2e03be7d9b4",
+  measurementId: "G-P22JRZ1LYB"
+};
+// Inicializa Firebase
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
