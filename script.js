@@ -32,7 +32,7 @@ window.addEventListener('load', () => {
 
 // Envío del formulario a WhatsApp
 document.getElementById('contactForm').addEventListener('submit', function(e) {
-    e.preventDefault(); // Evita que el formulario se envíe por HTTP
+    e.preventDefault();
 
     // Obtener valores del formulario
     const nombre = document.getElementById('nombre').value;
@@ -40,8 +40,8 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
     const telefono = document.getElementById('telefono').value;
     const mensaje = document.getElementById('mensaje').value;
 
-    // Número de teléfono del dueño (reemplaza con el número real)
-    const numeroWhatsApp = "9581111017"; // Ejemplo: México: 52 + número (sin +)
+    // Número de teléfono del dueño
+    const numeroWhatsApp = "9581111017";
 
     // Crear mensaje para WhatsApp
     let textoWhatsApp = `*Nuevo mensaje desde la web*%0A%0A`;
@@ -53,47 +53,31 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
     // Abrir WhatsApp con el mensaje
     window.open(`https://wa.me/${numeroWhatsApp}?text=${textoWhatsApp}`, '_blank');
 
-    // Opcional: Resetear el formulario
+    // Resetear el formulario
     this.reset();
 });
 
-// Sistema de Comentarios
-document.getElementById('formComentario').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    // Obtener valores del formulario
-    const nombre = document.getElementById('nombreUsuario').value;
-    const texto = document.getElementById('textoComentario').value;
-    const rating = document.querySelector('.estrellas .fas').parentElement.querySelectorAll('.fas').length;
-    const fecha = new Date().toLocaleDateString('es-ES');
+// Configuración de Firebase
+const firebaseConfig = {
+    apiKey: "AIzaSyAKRTdVrQxaLUCui5i5zmysgK7HTnieKsM",
+    authDomain: "comentarios-8336c.firebaseapp.com",
+    projectId: "comentarios-8336c",
+    storageBucket: "comentarios-8336c.appspot.com",
+    messagingSenderId: "837687714909",
+    appId: "1:837687714909:web:017303635bf2e03be7d9b4",
+    measurementId: "G-P22JRZ1LYB"
+};
 
-    // Crear elemento de comentario
-    const comentarioHTML = `
-        <div class="comentario">
-            <div class="comentario-header">
-                <h4>${nombre}</h4>
-                <div class="estrellas">
-                    ${'<i class="fas fa-star"></i>'.repeat(rating) + '<i class="far fa-star"></i>'.repeat(5 - rating)}
-                </div>
-            </div>
-            <p>"${texto}"</p>
-            <small>Publicado el ${fecha}</small>
-        </div>
-    `;
-
-    // Añadir comentario a la lista
-    document.getElementById('listaComentarios').insertAdjacentHTML('afterbegin', comentarioHTML);
-
-    // Resetear formulario
-    this.reset();
-    resetStars();
-});
+// Inicializa Firebase
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
 
 // Sistema de valoración con estrellas
 document.querySelectorAll('.estrellas i').forEach(star => {
     star.addEventListener('click', function() {
         const rating = parseInt(this.getAttribute('data-rating'));
-        const stars = this.parentElement.querySelectorAll('i');
+        const starsContainer = this.parentElement;
+        const stars = starsContainer.querySelectorAll('i');
         
         stars.forEach((s, index) => {
             if (index < rating) {
@@ -111,77 +95,104 @@ function resetStars() {
     });
 }
 
+// Sistema de Comentarios con Firebase
 document.getElementById('formComentario').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  
-  const nombre = document.getElementById('nombreUsuario').value;
-  const texto = document.getElementById('textoComentario').value;
-  const rating = document.querySelector('.estrellas .fas')?.parentElement.querySelectorAll('.fas').length || 0;
-  const fecha = new Date().toLocaleDateString('es-ES');
+    e.preventDefault();
+    
+    const submitBtn = this.querySelector('button[type="submit"]');
+    const originalBtnText = submitBtn.textContent;
+    
+    try {
+        // Mostrar estado de carga
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Enviando...';
+        
+        // Obtener valores del formulario
+        const nombre = document.getElementById('nombreUsuario').value.trim();
+        const texto = document.getElementById('textoComentario').value.trim();
+        const rating = document.querySelector('.estrellas .fas')?.parentElement.querySelectorAll('.fas').length || 0;
+        const fecha = new Date().toLocaleDateString('es-ES');
 
-  // Guardar en Firestore
-  try {
-    await db.collection("comentarios").add({
-      nombre,
-      texto,
-      rating,
-      fecha,
-      timestamp: firebase.firestore.FieldValue.serverTimestamp()
-    });
-    this.reset();
-    resetStars();
-    cargarComentarios(); // Recargar la lista
-  } catch (error) {
-    console.error("Error al guardar:", error);
-  }
+        // Validación
+        if (!nombre || !texto) {
+            alert('Por favor completa todos los campos requeridos');
+            return;
+        }
+
+        if (rating === 0) {
+            alert('Por favor selecciona una calificación');
+            return;
+        }
+
+        // Guardar en Firestore
+        await db.collection("comentarios").add({
+            nombre,
+            texto,
+            rating,
+            fecha,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        });
+        
+        // Resetear formulario
+        this.reset();
+        resetStars();
+        
+        // Recargar comentarios
+        await cargarComentarios();
+        
+        // Mostrar confirmación
+        alert('¡Gracias por tu comentario!');
+    } catch (error) {
+        console.error("Error al guardar:", error);
+        alert('Hubo un error al guardar tu comentario. Por favor intenta nuevamente.');
+    } finally {
+        // Restaurar botón
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalBtnText;
+    }
 });
 
-
-function cargarComentarios() {
-  const listaComentarios = document.getElementById('listaComentarios');
-  listaComentarios.innerHTML = ''; // Limpiar lista
-
-  db.collection("comentarios")
-    .orderBy("timestamp", "desc")
-    .get()
-    .then((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        const data = doc.data();
-        const comentarioHTML = `
-          <div class="comentario">
-            <div class="comentario-header">
-              <h4>${data.nombre}</h4>
-              <div class="estrellas">
-                ${'<i class="fas fa-star"></i>'.repeat(data.rating) + '<i class="far fa-star"></i>'.repeat(5 - data.rating)}
-              </div>
-            </div>
-            <p>"${data.texto}"</p>
-            <small>Publicado el ${data.fecha}</small>
-          </div>
-        `;
-        listaComentarios.insertAdjacentHTML('beforeend', comentarioHTML);
-      });
-    });
+// Función para cargar comentarios
+async function cargarComentarios() {
+    const listaComentarios = document.getElementById('listaComentarios');
+    
+    try {
+        // Mostrar indicador de carga
+        listaComentarios.innerHTML = '<div class="loading">Cargando comentarios...</div>';
+        
+        const querySnapshot = await db.collection("comentarios")
+            .orderBy("timestamp", "desc")
+            .get();
+            
+        // Limpiar lista
+        listaComentarios.innerHTML = '';
+        
+        if (querySnapshot.empty) {
+            listaComentarios.innerHTML = '<div class="no-comments">No hay comentarios aún. ¡Sé el primero en comentar!</div>';
+            return;
+        }
+        
+        querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            const comentarioHTML = `
+                <div class="comentario">
+                    <div class="comentario-header">
+                        <h4>${data.nombre}</h4>
+                        <div class="estrellas">
+                            ${'<i class="fas fa-star"></i>'.repeat(data.rating) + '<i class="far fa-star"></i>'.repeat(5 - data.rating)}
+                        </div>
+                    </div>
+                    <p>"${data.texto}"</p>
+                    <small>Publicado el ${data.fecha}</small>
+                </div>
+            `;
+            listaComentarios.insertAdjacentHTML('beforeend', comentarioHTML);
+        });
+    } catch (error) {
+        console.error("Error al cargar comentarios:", error);
+        listaComentarios.innerHTML = '<div class="error">Error al cargar los comentarios. Por favor recarga la página.</div>';
+    }
 }
 
 // Cargar comentarios al iniciar
 document.addEventListener('DOMContentLoaded', cargarComentarios);
-
-
-
-
-
-
-
-const firebaseConfig = {
-  apiKey: "AIzaSyAKRTdVrQxaLUCui5i5zmysgK7HTnieKsM",
-  authDomain: "comentarios-8336c.firebaseapp.com",
-  projectId: "comentarios-8336c",
-  storageBucket: "comentarios-8336c.firebasestorage.app",
-  messagingSenderId: "837687714909",
-  appId: "1:837687714909:web:017303635bf2e03be7d9b4",
-  measurementId: "G-P22JRZ1LYB"
-};
-// Inicializa Firebase
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
