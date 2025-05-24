@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospedaje - ShuttlerCRE</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="galery.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" href="logo1.png" type="image/x-icon">
+</head>
+<body>
+    <!-- Header / Navbar (igual que en index.html) -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">Shuttler<span>CRE</span></a>
+                <ul class="nav-links">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="index.html#tours">Tours</a></li>
+                    <li><a href="index.html#destinos">Destinos</a></li>
+                    <li><a href="galeria.html">Galería</a></li>
+                    <li><a href="index.html#contacto">Contacto</a></li>
+                </ul>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Galería -->
+    <section class="gallery-section">
+        <div class="container">
+            <h2 class="section-title">Hospedaje</h2>
+            <p class="gallery-subtitle">Descubre la belleza de nuestros destinos</p>
+            
+            <!-- <div class="gallery-filters">
+                <button class="filter-btn active" data-filter="all">Todos</button>
+                <button class="filter-btn" data-filter="yates">Yates</button>
+                <button class="filter-btn" data-filter="cuatrimoto">Cuatrimotos</button>
+                <button class="filter-btn" data-filter="ciudad">Viaje a caballo</button>
+                <button class="filter-btn" data-filter="habitacion">Hospedaje</button>
+            </div> -->
+            
+            <div class="gallery-container">
+                <!-- Ejemplo de ítems de galería - reemplaza con tus imágenes -->
+                <div class="gallery-item" data-category="yates">
+                    <img src="junior.jpg" alt="Playa paradisíaca">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <h3>Junior suite</h3>
+                            <p></p>
+                            <i class="fas fa-expand"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="yates">
+                    <img src="alberca.jpg" alt="Selva tropical">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <h3>Alberca</h3>
+                            <p></p>
+                            <i class="fas fa-expand"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Agrega más items aquí -->
+                <div class="gallery-item" data-category="yates">
+                    <img src="sala.jpg" alt="Atardecer en la playa">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <h3>Sala</h3>
+                            <p></p>
+                            <i class="fas fa-expand"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="ciudad">
+                    <img src="baño.jpg" alt="Centro histórico">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <h3>Baño propio</h3>
+                            <p></p>
+                            <i class="fas fa-expand"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="ciudad">
+                    <img src="baños.jpg" alt="Centro histórico">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <h3>Comodidad</h3>
+                            <p></p>
+                            <i class="fas fa-expand"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="ciudad">
+                    <img src="tele.jpg" alt="Centro histórico">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <h3>Con televición</h3>
+                            <p></p>
+                            <i class="fas fa-expand"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="ciudad">
+                    <img src="vista.jpg" alt="Centro histórico">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <h3>Con hermosa vista</h3>
+                            <p></p>
+                            <i class="fas fa-expand"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="ciudad">
+                    <img src="entrada .jpg" alt="Centro histórico">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <h3>Calidez</h3>
+                            <p></p>
+                            <i class="fas fa-expand"></i>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="gallery-item" data-category="ciudad">
+                    <img src="habitacion.jpg" alt="Centro histórico">
+                    <div class="gallery-overlay">
+                        <div class="overlay-content">
+                            <h3>Confort</h3>
+                            <p></p>
+                            <i class="fas fa-expand"></i>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal para imagen ampliada -->
+    <div class="gallery-modal">
+        <span class="close-modal">&times;</span>
+        <img class="modal-content" id="expandedImg">
+        <div class="modal-caption"></div>
+    </div>
+
+    <!-- Footer (igual que en index.html) -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <a href="index.html" class="logo">Shuttler<span>CRE</span></a>
+                    <p>© 2023 Todos los derechos reservados.</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Enlaces</h3>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="index.html#tours">Tours</a></li>
+                        <li><a href="galeria.html">Galería</a></li>
+                        <li><a href="index.html#contacto">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h3>Síguenos</h3>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <!-- <a href="#"><i class="fab fa-instagram"></i></a> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+    <script src="galery.js"></script>
+</body>
+</html>

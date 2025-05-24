@@ -417,6 +417,7 @@ body {
 
 .servicio-card {
     text-align: center;
+    text-decoration: none; /* Elimina el subrayado del enlace */
     padding: 30px 20px;
     background: white;
     border-radius: 10px;
@@ -520,4 +521,8 @@ body {
 .comentario small {
     color: #999;
     font-size: 0.8rem;
+}
+
+.text {
+    text-align: justify;
 }
