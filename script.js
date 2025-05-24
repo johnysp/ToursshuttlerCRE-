@@ -41,10 +41,10 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
     const mensaje = document.getElementById('mensaje').value;
 
     // Número de teléfono del dueño
-    const numeroWhatsApp = "9581111017";
+    const numeroWhatsApp = "9981032361";
 
     // Crear mensaje para WhatsApp
-    let textoWhatsApp = `*Nuevo mensaje desde la web*%0A%0A`;
+    let textoWhatsApp = `*Mensaje desde la Pagina*%0A%0A`;
     textoWhatsApp += `*Nombre:* ${nombre}%0A`;
     textoWhatsApp += `*Email:* ${email}%0A`;
     if (telefono) textoWhatsApp += `*Teléfono:* ${telefono}%0A`;
